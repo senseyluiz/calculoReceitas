@@ -171,6 +171,7 @@ button a{
 @media screen and (max-width: 800px){
     form{
         max-width: 95%;
+        font-size: 5px;
     }  
     
     
