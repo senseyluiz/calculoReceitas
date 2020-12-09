@@ -8,7 +8,17 @@
 </head>
 <body>
 
-    <h1> Calculo de Receitas</h1>
+   <section class="geral">
+        <h1> Calculo de Receitas</h1>
+
+        <div class="w50">
+            <h3 >Nome da Receita: <input type="text" class="nomeReceita"></h3>        
+
+            <h3 class=>Nº de Porções:<input type="text" class="porcoes"></h3>
+        </div>
+        
+
+    
     
     <form action="" class="center"> <!--Inicio do formulário-->
 
@@ -19,7 +29,11 @@
         <input type="text" class="quantidade">
 
         <label for="">Unidade de Medida</label>
-        <input type="text" class="unidade-medida">
+        <select class="unidade-medida">
+            <option> Gr </option>
+            <option> ML</option>
+            <option>Unidade</option>
+        </select>
 
         <label for="">Peso da Embalagem</label>
         <input type="text" class="peso-embalagem">
@@ -29,7 +43,7 @@
 
         <button class="adiciona"> ADICIONAR</button>
 
-    </form> <!--Fim do formulário-->
+    </form> <!--Fim do formulário-->    
 
     <table class="">
         <thead>
@@ -51,7 +65,11 @@
     </table>
 
     <section class="dados-contabeis">
+
+        <h2> Dados Contábeis</h2>
+        
         <div class="w50">
+            
             <p> Porcentagem para cálculo de Insumo: <input type="text" class="porcentagem-insumo"></p>
 
             <p>Custo mensal de funcionários: <input type="text" class="custo-funcionarios"></p>
@@ -71,6 +89,9 @@
     </section>
 
     <section class="resultados">
+
+        <h3 class="receita"> </h3>
+
         <table>
             <thead>
                 <tr> 
@@ -88,6 +109,10 @@
                 
             </tbody>
         </table>
+    </section>
+
+    <button class="novaReceita center"><a href="index.html"> NOVA RECEITA </a></a></button>    
+
     </section>
 
     <script src="js/script.js"></script>

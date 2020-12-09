@@ -8,6 +8,8 @@ const precoEmbalagem = document.querySelector('.preco-embalagem');
 const btnAdicionar = document.querySelector('button');
 const tbody = document.querySelector('tbody');
 const boxResultado = document.querySelector('.boxreultado');
+const nomeReceita = document.querySelector('.nomeReceita');
+const receita = document.querySelector('.receita');
 
 var custoReceita = 0;
 
@@ -46,8 +48,7 @@ function adicionar(e){
 
         
         let btnRemover = document.createElement('button');
-        btnRemover.innerHTML = "Remover";
-
+        btnRemover.innerHTML = "Remover";        
         
         tr.appendChild(qtde);
         tr.appendChild(unid);
@@ -58,10 +59,12 @@ function adicionar(e){
         tr.appendChild(btnRemover);
 
         btnRemover.onclick = ()=>{
-            tbody.removeChild(tr);
+            tbody.removeChild(tr);           
+            
         }   
         
         limpaCampos();
+        custoRemover = "";
         
     }
 }
@@ -86,50 +89,65 @@ const diasTrabalhados = document.querySelector('.dias-trabalhados');
 const horasTrabalhadas = document.querySelector('.horas-trabalhadas');
 const valorHora = document.querySelector('.valor-hora');
 const lucroPretendido = document.querySelector('.lucro-pretendido');
-const horasReceita = document.querySelector('.horas-receita')
+const horasReceita = document.querySelector('.horas-receita');
+const porcoes = document.querySelector('.porcoes');
 
 
-function calcular(){     
-    var insumos = (custoReceita * (porcentagemInsumo.value/100));
-    var funcionarios = custoFuncionarios.value;
-    var diasDeTrabalho = diasTrabalhados.value;
-    var horasDeTrabalho = horasTrabalhadas.value;
-    var valorDaHora = (funcionarios/diasDeTrabalho)/horasDeTrabalho;
-    var porcentageLucro = lucroPretendido.value/100;
-    var horasNaReceita = horasReceita.value;
-    var maoDeObra = funcionarios/diasDeTrabalho/horasDeTrabalho*horasNaReceita; 
-    var lucro = (custoReceita + insumos + maoDeObra) * (porcentageLucro);
-    var totatlReceita =  custoReceita + insumos + maoDeObra + lucro;
-
-    valorHora.value = valorDaHora.toFixed(2);
+function calcular(){ 
+    if(!porcentagemInsumo.value || !custoFuncionarios.value || !diasTrabalhados.value || !horasTrabalhadas.value || !horasReceita.value || !lucroPretendido.value){
+        alert("Por favor, preencha todos os Dados Contábeis");
+    }
     
-    // Adicionar resultados
 
-    let tbody = document.querySelector('.boxResultado');
-    let tr = document.createElement('tr');
-    tbody.appendChild(tr);
-    
-    let thCustoReceita = document.createElement('th');
-    thCustoReceita.innerHTML = custoReceita.toFixed(2);
+    if(porcentagemInsumo.value || custoFuncionarios.value || diasTrabalhados.value || horasTrabalhadas.value || horasReceita.value || lucroPretendido.value){
 
-    let thInsumos = document.createElement('th');
-    thInsumos.innerHTML = insumos.toFixed(2);
+        var insumos = (custoReceita * (porcentagemInsumo.value/100));
+        var funcionarios = custoFuncionarios.value;
+        var diasDeTrabalho = diasTrabalhados.value;
+        var horasDeTrabalho = horasTrabalhadas.value;
+        var valorDaHora = (funcionarios/diasDeTrabalho)/horasDeTrabalho;
+        var porcentageLucro = lucroPretendido.value/100;
+        var horasNaReceita = horasReceita.value;
+        var maoDeObra = funcionarios/diasDeTrabalho/horasDeTrabalho*horasNaReceita; 
+        var lucro = (custoReceita + insumos + maoDeObra) * (porcentageLucro);
+        var totatlReceita =  custoReceita + insumos + maoDeObra + lucro;
+        var unidades = porcoes.value;
 
-    let thMaoDeObra = document.createElement('th');
-    thMaoDeObra.innerHTML = maoDeObra.toFixed(2);
+        valorHora.value = valorDaHora.toFixed(2);
+        
+        // Adicionar resultados
 
-    let thLucro = document.createElement('th');
-    thLucro.innerHTML = lucro.toFixed(2);
+        let tbody = document.querySelector('.boxResultado');
+        let tr = document.createElement('tr');
+        tbody.appendChild(tr);
+        
+        let thCustoReceita = document.createElement('th');
+        thCustoReceita.innerHTML = custoReceita.toFixed(2);
 
-    let thTotalReceita = document.createElement('th');
-    thTotalReceita.innerHTML = totatlReceita.toFixed(2);
+        let thInsumos = document.createElement('th');
+        thInsumos.innerHTML = insumos.toFixed(2);
 
-    tr.appendChild(thCustoReceita);
-    tr.appendChild(thInsumos);
-    tr.appendChild(thMaoDeObra);
-    tr.appendChild(thLucro);
-    tr.appendChild(thTotalReceita);
+        let thMaoDeObra = document.createElement('th');
+        thMaoDeObra.innerHTML = maoDeObra.toFixed(2);
 
+        let thLucro = document.createElement('th');
+        thLucro.innerHTML = lucro.toFixed(2);
+
+        let thTotalReceita = document.createElement('th');
+        thTotalReceita.innerHTML = totatlReceita.toFixed(2);
+
+        let valorUnitario = document.createElement('th');
+        valorUnitario.innerHTML = (totatlReceita/unidades).toFixed(2);
+
+        tr.appendChild(thCustoReceita);
+        tr.appendChild(thInsumos);
+        tr.appendChild(thMaoDeObra);
+        tr.appendChild(thLucro);
+        tr.appendChild(thTotalReceita);
+        tr.appendChild(valorUnitario);
+        
+        receita.innerHTML = nomeReceita.value;
+    }
 };
 
 const btnCalcular = document.querySelector('.calcular');
